@@ -1,6 +1,10 @@
 import sympy as sp
 import time
+from memory_profiler import profile
 
+
+
+@profile
 def biseccion():
     solucion = None
     contador = 0
@@ -34,9 +38,14 @@ def biseccion():
     else:
         print('No existe solución en ese intervalo')
 
-
-
-
+        
+        
+        
+        
+        
+        
+        
+@profile
 def newton_raphson():
     x = sp.Symbol('x')
     f_str = input('Digite la función (con variable x): ')
@@ -69,7 +78,7 @@ def newton_raphson():
     print('No se ha encontrado una raíz en', iteraciones, 'iteraciones')
     print('Tiempo de ejecución:', execution_time, 'segundos')
 
-
+@profile
 def punto_fijo():
     x = sp.Symbol('x')
     g_str = input('Digite la función: ')
