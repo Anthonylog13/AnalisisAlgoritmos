@@ -2,8 +2,6 @@ import sympy as sp
 import time
 from memory_profiler import profile
 
-
-
 @profile
 def biseccion():
     solucion = None
@@ -19,7 +17,7 @@ def biseccion():
     tolerancia = float(input('Digite el error máximo permitido: '))
     
     if funcion.subs(x, x_i) * funcion.subs(x, x_f) <= 0: 
-        start_time = time.time()  # Registra el tiempo de inicio
+        start_time = time.time()  
         while contador <= iteraciones and error_calculado >= tolerancia:
             contador += 1
             solucion = (x_i + x_f) / 2
@@ -28,8 +26,8 @@ def biseccion():
                 x_i = solucion
             else:
                 x_f = solucion   
-        end_time = time.time()  # Registra el tiempo de finalización
-        execution_time = end_time - start_time  # Calcula el tiempo de ejecución
+        end_time = time.time()  
+        execution_time = end_time - start_time  
         
         print('La solución es:', solucion)
         print('Encontrada en:', contador, 'iteraciones') 
@@ -37,13 +35,6 @@ def biseccion():
         print('Tiempo de ejecución: {:.6f} segundos'.format(execution_time))
     else:
         print('No existe solución en ese intervalo')
-
-        
-        
-        
-        
-        
-        
         
 @profile
 def newton_raphson():
@@ -58,7 +49,7 @@ def newton_raphson():
     f_func = sp.lambdify(x, f)
     df_func = sp.lambdify(x, df)
     
-    start_time = time.time()  # Registra el tiempo de inicio
+    start_time = time.time()  
     
     for k in range(iteraciones):
         x1 = x_ini - f_func(x_ini) / df_func(x_ini)
@@ -66,15 +57,15 @@ def newton_raphson():
             print('La raíz aproximada es:', x1)
             print('Encontrada en', k + 1, 'iteraciones')
             print('Con un error de', abs(x1 - x_ini))
-            end_time = time.time()  # Registra el tiempo de finalización
-            execution_time = end_time - start_time  # Calcula el tiempo de ejecución
+            end_time = time.time()  
+            execution_time = end_time - start_time  
             print('Tiempo de ejecución:', execution_time, 'segundos')
             return
         x_ini = x1
         print('x', k + 1, '=', x1)
 
-    end_time = time.time()  # Registra el tiempo de finalización
-    execution_time = end_time - start_time  # Calcula el tiempo de ejecución
+    end_time = time.time()  
+    execution_time = end_time - start_time  
     print('No se ha encontrado una raíz en', iteraciones, 'iteraciones')
     print('Tiempo de ejecución:', execution_time, 'segundos')
 
@@ -90,14 +81,14 @@ def punto_fijo():
     
     g_derivada = sp.diff(g_expr, x)
     
-    g_func = sp.lambdify(x, g_expr, 'numpy')
-    g_derivada_func = sp.lambdify(x, g_derivada, 'numpy')
+    g_func = sp.lambdify(x, g_expr, 'math')  
+    g_derivada_func = sp.lambdify(x, g_derivada, 'math')  
     
     if abs(g_derivada_func(x_ini)) > 1:
         print("La función elegida no converge") 
         return 
     else:
-        start_time = time.time()  # Registra el tiempo de inicio
+        start_time = time.time()  
         sol = [x_ini]
         for i in range(iteraciones):
             sol.append(g_func(sol[-1]))
@@ -109,11 +100,10 @@ def punto_fijo():
                 print("Error:", error)
                 break
         
-        end_time = time.time()  # Registra el tiempo de finalización
-        execution_time = end_time - start_time  # Calcula el tiempo de ejecución
+        end_time = time.time()  
+        execution_time = end_time - start_time 
         print("Tiempo de ejecución:", execution_time, "segundos")
         return sol[-1]
-
 def menu():
     while True:
         print("\nSeleccione el método que desea utilizar:")
@@ -135,6 +125,4 @@ def menu():
             break
         else:
             print("Opción no válida. Por favor, ingrese un número del 1 al 4.")
-
-
 menu()
